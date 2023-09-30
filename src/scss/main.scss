@@ -1,0 +1,89 @@
+// ----------------------> Variables //
+$minwidth: 320;
+$maxWidth: 1600;
+$container: 1030;
+
+// ----------------------> Responsive breackpoint //
+// mfs - mobile first media queries
+// dfs - desctop first media queries
+$laptop: 991.98;
+$planshet: 768;
+$mobile: 470.98;
+
+// ----------------------> z-index rules //
+$l1: 1; // 
+$l2: 2; // 
+$l3: 3; // 
+$l4: 4; // 
+$l5: 5; //
+
+// ----------------------> Color schem
+$mainFontColor: rgba(58, 58, 58, 1);
+$mainBackgroundColor: rgba(255, 255, 255, 1);
+
+// ----------------------> Dependencies //
+@import './dependencies/reset.scss';
+@import './dependencies/fonts.scss';
+@import './dependencies/mixins.scss';
+
+
+// ----------------------> Body base style //
+body{
+    font-family: 'Cardo';
+    font-size: rem(18);
+    color: #525252;
+    background: #F7F7F7;
+    &.lock{
+        overflow: clip;
+    }
+}
+
+// ----------------------> Base structure style //
+.wrapper {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100%;
+
+    overflow: clip;
+}
+
+.main {
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+[class*="__container"] {
+    margin: 0 auto;
+    max-width: $container + 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+[class*="__container"] {
+    margin: 0 auto;
+    max-width: $container + 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+// ----------------------> Img to Background //
+.ibg{
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    & img{
+        width: 0;height: 0;
+        position: absolute;
+        top: 0;left: 0;
+        opacity: 0;
+        visibility: hidden;
+        object-fit: cover;
+        }
+    }
+
+// ----------------------> Common styles for project //    
+@import './common_styles/header.scss';
+@import './common_styles/b1.scss';
+@import './common_styles/footer.scss';

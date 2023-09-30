@@ -1,0 +1,116 @@
+@use 'sass:math';
+// SCSS миксин для подключения шрифтов
+@mixin font($font_name, $file_name, $weight, $style) {
+
+    @font-face {
+        font-family: $font_name;
+        font-display: swap;
+        src: url("../fonts/#{$file_name}.woff") format("woff"),
+        url("../fonts/#{$file_name}.woff2") format("woff2");
+        font-weight: #{$weight};
+        font-style: #{$style};
+    }
+}
+
+//--------------------------------------------------
+
+// SCSS Миксин для адаптирования размера шрифта
+@mixin adaptiv-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+//--------------------------------------------------
+
+//PX to %
+@function prc($target, $context) {
+    $res: math.div($target, $context)*100%;
+    @return $res;
+}
+//PX to REM
+@function rem($px) {
+    $res: math.div($px, 16)+rem;
+    @return $res;
+}
+//PX to EM
+@function em($px) {
+    $res: math.div($px, 16)+em;
+    @return $res;
+}
+
+// Base button style <a> as <button>
+@mixin button() {
+    display: inline-flex;
+    align-items: center;  
+    justify-content: center; 
+    text-align: center;
+    text-decoration: none;
+    
+  }
+
+// черновик для адаптивных свойтв
+  @mixin font-size($base-size, $mobile-size) {
+    font-size: $base-size;
+    
+    @media screen and (max-width: 767px) {
+      font-size: $mobile-size;
+    }
+    
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+      font-size: calc(#{$mobile-size} + (#{$base-size} - #{$mobile-size}) * ((100vw - 768px) / 255));
+    }
+    
+    @media screen and (min-width: 1024px) {
+      font-size: $base-size;
+    }
+  }
+
+// миксин для расчёта пропорций изовражений
+  @mixin aspect-ratio($width, $height) {
+    $padding: calc(#{$height} / #{$width} * 100%);
+    padding-bottom: $padding;
+    //background-size: cover;
+  }
+
+// миксин для подключений шрифтов
+
+@mixin font-face($font-family, $font-weight, $font-style, $font-path, $font-formats...) {
+    $src: ();
+    @each $format in $font-formats {
+      $src: append($src, url('#{$font-path}.#{$format}') format('#{$format}'), comma);
+    }
+    @font-face {
+      font-display: swap;
+      font-family: #{$font-family};
+      src: $src;
+      font-weight: $font-weight;
+      font-style: $font-style;
+    }
+    font-family: #{$font-family}, sans-serif;
+  }
+
+
+
+@mixin breakpoint($point) {
+  @if $point == mobile {
+    @media (min-width: $mobile) {
+      @content;
+    }
+  }
+  @else if $point == tablet {
+    @media (min-width: $tablet) {
+      @content;
+    }
+  }
+  @else if $point == desktop {
+    @media (min-width: $desktop) {
+      @content;
+    }
+  }
+  @else if $point { // for customs breakpoits
+    @media (min-width: $point) {
+      @content;
+    }
+  }
+}
+
